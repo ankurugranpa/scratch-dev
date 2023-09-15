@@ -4,3 +4,6 @@
 [submodule "scratch-vm"]
 	path = scratch-vm
 	url = git@github.com:ankurugranpa/scratch-vm.git
+[submodule "line_fastAPI"]
+	path = line_fastAPI
+	url = git@github.com:ankurugranpa/line_fastAPI.git
