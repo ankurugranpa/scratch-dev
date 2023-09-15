@@ -1,0 +1,3 @@
+[submodule "scratch-gui"]
+	path = scratch-gui
+	url = git@github.com:ankurugranpa/scratch-gui.git
