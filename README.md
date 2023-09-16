@@ -6,7 +6,7 @@ Node.js: v16.20.2
 ```
 ## install
 ```
-bash setup.sh
+make install
 ```
 ## Usage
 starting Scratch server
