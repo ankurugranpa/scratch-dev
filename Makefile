@@ -1,5 +1,9 @@
 SHELL := /bin/bash
-install: scratch-vm scratch-gui line_fastAPI install-scratch install-line_fastAPI
+install: reset scratch-vm scratch-gui line_fastAPI install-scratch install-line_fastAPI
+reset:
+	@rm -rf scratch-vm
+	@rm -rf scratch-gui
+	@rm -rf line_fastAPI
 scratch-vm:
 	@echo -e "\e[44m clone ankurugranpa/scratch-vm \e[m"
 	@git clone git@github.com:ankurugranpa/scratch-vm.git
