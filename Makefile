@@ -15,7 +15,7 @@ scratch-gui:
 line_fastAPI:
 	@echo -e "\e[44m clone ankurugranpa/line_fastAPI \e[m"
 	@git clone git@github.com:ankurugranpa/line_fastAPI.git
-
+install-scratch-only: scratch-vm scratch-gui install-scratch
 install-scratch: scratch-vm scratch-gui
 	@echo -e "\e[44m install scratch \e[m"
 	@cd scratch-vm \
