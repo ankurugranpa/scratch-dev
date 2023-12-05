@@ -1,34 +1,32 @@
-FROM debian:stable-slim 
+FROM node:16.20.2-buster-slim
 
-WORKDIR $HOME
-ENV PATH "/root/.nodebrew/current/bin:${PATH}"
+WORKDIR /src/scratch-vm
+COPY ./scratch-vm/package.json /src/scratch-vm
+COPY ./scratch-vm/package-lock.json /src/scratch-vm
 
-RUN apt-get update && apt-get install -y \
-    curl \
-    git \
-    openssh-client \
-    && rm -rf /var/lib/apt/lists/*
+# RUN npm config set prefix "/src/scratch-vm"
+# RUN npm install --prefix "/src/scratch-vm" \
+# 	&& npm link 
 
-RUN curl -L git.io/nodebrew | perl - setup \
-	&& nodebrew install 16.20.2 \
-	&& nodebrew use 16.20.2
-
-
-# GitHubにSSH接続するための設定
-#RUN mkdir -p -m 0600 ~/.ssh && \
-#    ssh-keyscan github.com >> ~/.ssh/known_hosts && \
-#    git config --global url.git@github.com:.insteadOf https://github.com/
-#
-#RUN --mount=type=ssh\
-#	git clone git@github.com:ankurugranpa/ankuru-scratch-vm.git \
-#	&& git clone git@github.com:ankurugranpa/ankuru-scratch-gui.git 
-
-WORKDIR /root/scratch-vm
-RUN echo $(readlink -f package.json)
 RUN npm install \
 	&& npm link 
 
-#WORKDIR $HOME/scratch-gui
-#RUN npm install \
-#	&& npm link scratch-vm 
-#CMD ["npm", "start"]
+WORKDIR /src/scratch-gui
+
+COPY ./scratch-gui/package.json /src/scratch-gui
+COPY ./scratch-gui/package-lock.json /src/scratch-gui
+COPY ./scratch-gui/scripts/prepublish.mjs /src/scratch-gui/scripts/prepublish.mjs
+COPY ./scratch-gui/src/ /src/scratch-gui/src/
+COPY ./scratch-gui/src/ /src/scratch-gui/src/
+# RUN npm install -g
+# RUN npm config set prefix "/src/scratch-gui"
+# RUN npm install --prefix "/src/scratch-gui" \
+# 	&& npm link scratch-vm 
+RUN npm install \
+        && npm link scratch-vm \
+&& mv ./node_modules / 
+      # && npm start 
+
+# RUN cp /usr/local/lib/node_modules ./node_modules
+# RUN ["npm", "start"]
+ENTRYPOINT ["npm", "start"]

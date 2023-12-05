@@ -1,23 +1,24 @@
 version: "3"
+volumes:
+  node_module1:
+  node_module2:
+
 services:
-  #    web-scratch:
-  #         container_name: scratch-gui
-  #         build:
-  #           context: ./
-  #           dockerfile: Dockerfile
-  #         ports:
-  #             - "8601:8601"
-  #         volumes:
-  #           - type: bind
-  #             source:  ../ankuru-scratch-vm
-  #             target: /root/scratch-vm 
-  #  
-  #           - type: bind
-  #             source:  ../ankuru-scratch-gui
-  #             target: /root/scratch-gui
-  #
-  #
-    line-fastapi:
+    web-scratch:
+         container_name: scratch-gui
+         tty: true
+         build:
+           context: scratch
+           dockerfile: Dockerfile
+         ports:
+             - 8601:8601  # ホストマシンのポート8000を、docker内のポート8000に接続する
+         volumes: 
+             - ./scratch/:/src:cached
+             - node_module1:/scratch/scratch-gui/node_modules/
+             - node_module2:/scratch/scratch-vm/node_modules/
+  
+  
+    ine-fastapi:
         container_name: line_FastAPI
         tty: true
         build:
