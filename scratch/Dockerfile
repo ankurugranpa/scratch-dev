@@ -23,10 +23,10 @@ COPY ./scratch-gui/src/ /src/scratch-gui/src/
 # RUN npm install --prefix "/src/scratch-gui" \
 # 	&& npm link scratch-vm 
 RUN npm install \
-        && npm link scratch-vm \
-&& mv ./node_modules / 
+        && npm link scratch-vm 
+# && mv ./node_modules / 
       # && npm start 
 
 # RUN cp /usr/local/lib/node_modules ./node_modules
 # RUN ["npm", "start"]
-# ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["npm", "start"]
