@@ -28,6 +28,17 @@ services:
             - 8000:8000  # ホストマシンのポート8000を、docker内のポート8000に接続する
         volumes: 
             - ./line_fastAPI/:/src:cached
+
+    scratch-db:
+        container_name: scratch-db 
+        tty: true
+        build:
+          context: scratch-db/
+          dockerfile: Dockerfile
+        ports:
+            - 8001:8001  
+        volumes: 
+            - ./scratch-db/:/src:cached
     db:
         image: mysql:8.0
         platform: linux/x86_64  # M1 Macの場合必要
@@ -36,6 +47,7 @@ services:
           MYSQL_DATABASE: 'line_api'  # 初期データベースとしてdemoを設定
           TZ: 'Asia/Tokyo'  # タイムゾーンを日本時間に設定
         volumes:
+          - ./my.cnf:/etc/mysql/conf.d/my.cnf
           - mysql_data:/var/lib/mysql
         command: --default-authentication-plugin=mysql_native_password  # MySQL8.0ではデフォルトが"caching_sha2_password"で、ドライバが非対応のため変更
         ports:
