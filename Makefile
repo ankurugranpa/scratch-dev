@@ -18,7 +18,7 @@ line_fastAPI:
 install-scratch-only: scratch-vm scratch-gui install-scratch
 install-scratch: scratch-vm scratch-gui
 	@echo -e "\e[44m install scratch \e[m"
-	@cd scratch-vm \
+	@cd scratch/\scratch-vm \
 	&& npm install \
 	&& npm link \
 	&& cd ../scratch-gui \
