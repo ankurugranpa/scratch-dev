@@ -1,9 +1,12 @@
 [submodule "scratch-gui"]
-	path = scratch-gui
+	path =  scratch/scratch-gui
 	url = git@github.com:ankurugranpa/scratch-gui.git
 [submodule "scratch-vm"]
-	path = scratch-vm
+	path =  scratch/scratch-vm
 	url = git@github.com:ankurugranpa/scratch-vm.git
 [submodule "line_fastAPI"]
 	path = line_fastAPI
 	url = git@github.com:ankurugranpa/line_fastAPI.git
+[submodule "scratch-db"]
+	path = scratch-db
+	url = git@github.com:ankurugranpa/scratch-db.git
