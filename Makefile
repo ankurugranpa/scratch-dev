@@ -1,38 +1,43 @@
 SHELL := /bin/bash
-install: reset scratch-vm scratch-gui line_fastAPI install-scratch install-line_fastAPI
+
+# 変数
+SCRATCH_DIR := scratch
+SCRATCH_VM := $(SCRATCH_DIR)/scratch-vm
+SCRATCH_GUI := $(SCRATCH_DIR)/scratch-gui
+LINE_API := line-fastAPI
+SCRATCH_DB := scratch-db
+
+.PHONY: install reset init-submodules install-scratch install-line-fastapi install-db
+
+install: reset init-submodules install-scratch install-line-fastapi install-db
+
 reset:
-	@rm -rf scratch-vm
-	@rm -rf scratch-gui
-	@rm -rf line_fastAPI
-scratch-vm:
-	@echo -e "\e[44m clone ankurugranpa/scratch-vm \e[m"
-	@git clone git@github.com:ankurugranpa/scratch-vm.git
+	@echo -e "\e[41m Resetting working directories... \e[m"
+	@rm -rf $(SCRATCH_VM) $(SCRATCH_GUI) $(LINE_API) $(SCRATCH_DB)
 
-scratch-gui:
-	@echo -e "\e[44m clone ankurugranpa/scratch-gui \e[m"
-	@git clone git@github.com:ankurugranpa/scratch-gui.git
+init-submodules:
+	@echo -e "\e[44m Initializing git submodules... \e[m"
+	@git submodule update --init --recursive
 
-line_fastAPI:
-	@echo -e "\e[44m clone ankurugranpa/line_fastAPI \e[m"
-	@git clone git@github.com:ankurugranpa/line_fastAPI.git
-install-scratch-only: scratch-vm scratch-gui install-scratch
-install-scratch: scratch-vm scratch-gui
-	@echo -e "\e[44m install scratch \e[m"
-	@cd scratch/\scratch-vm \
+install-scratch:
+	@echo -e "\e[44m Installing Scratch (vm + gui)... \e[m"
+	cd $(SCRATCH_VM) \
 	&& npm install \
-	&& npm link \
-	&& cd ../scratch-gui \
+	&& npm link
+	cd $(SCRATCH_GUI) \
 	&& npm install \
 	&& npm link scratch-vm
 
-install-line_fastAPI: line_fastAPI
-	@echo -e "\e[44m install line_fastAPI \e[m"
-	@cd line_fastAPI\
+install-line-fastapi:
+	@echo -e "\e[44m Installing line-fastAPI... \e[m"
+	cd $(LINE_API) \
 	&& touch .env \
-	&& echo "LINE_CHANEL_API_KEY='your_api_key'" >> .env \
+	&& echo "LINE_CHANEL_API_KEY='your_api_key'" > .env \
 	&& echo "LINE_USER_ID='your_user_id'" >> .env \
 	&& python3 -m venv venv \
 	&& source venv/bin/activate \
 	&& pip install -r requirements.txt \
-	&& deactivate 
+	&& deactivate
 
+install-db:
+	@echo -e "\e[44m Installing scratch-db... \e[m"
