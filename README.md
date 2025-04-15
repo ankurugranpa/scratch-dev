@@ -1,6 +1,14 @@
 # scratchの改造
 教育用のノード型プログラミングアプリである[scratch](https://scratch.mit.edu/projects/editor/?tutorial=getStarted)
 scratchの拡張機能として`line bot`, `Chat gpt`, `voice vox`を扱える
+
+## 依存プロジェクト
+[ankurugranpa/line_fastAPI](https://github.com/ankurugranpa/line_fastAPI/tree/master)\
+[ankurugranpa/scratch-gui](https://github.com/ankurugranpa/scratch-gui/tree/master)\
+[ankurugranpa/scratch-vm](https://github.com/ankurugranpa/scratch-vm/tree/master)\
+[ankurugranpa/scratch-db](https://github.com/ankurugranpa/scratch-db/tree/master)
+
+
 ## require
 ```
 docker 
